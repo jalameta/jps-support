@@ -1,0 +1,32 @@
+{
+  "name": "jalameta/jps-support",
+  "type": "laravel-plugin",
+  "require": {
+    "illuminate/support" : "^5.6|^5.7",
+    "illuminate/database": "^5.6|^5.7",
+    "ramsey/uuid": "^3.8"
+  },
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Rifki Alhuraibi",
+      "email": "veelasky@gmail.com"
+    }
+  ],
+  "suggest": {
+    "keiko/uuid-shortener": "A simple shortener library for RFC 4122 compatible UUIDs. Change your 36 chars long UUID into it's shorter equivalent. You must install this package if you want to be able to use UUID Shortener"
+  },
+  "autoload": {
+    "psr-4": {
+      "Jalameta\\Support\\": "src"
+    }
+  },
+  "minimum-stability": "stable",
+  "extra": {
+    "laravel": {
+      "providers": [
+
+      ]
+    }
+  }
+}
