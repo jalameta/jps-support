@@ -9,5 +9,13 @@ namespace Jalameta\Support\Response;
  */
 trait ApiResponse
 {
-    
+    public function apiSuccess(array $data, $json = true)
+    {
+        
+    }
+
+    public function apiError()
+    {
+
+    }
 }
