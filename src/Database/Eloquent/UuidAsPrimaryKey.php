@@ -22,7 +22,7 @@ trait UuidAsPrimaryKey
     public static function bootUuidAsPrimaryKey()
     {
         self::creating(function ($model) {
-            /**
+            /*
              * @var $this
              */
             if (empty($model->{$model->getKeyName()})) {
