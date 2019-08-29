@@ -153,7 +153,7 @@ abstract class BaseJob
     /**
      * Run the actual command process.
      *
-     * @return mixed
+     * @return bool
      */
     abstract public function run() : bool;
 
