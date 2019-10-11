@@ -14,7 +14,7 @@ trait ElasticSearchable
     /**
      * Boot trait.
      */
-    public function bootElasticSearchable()
+    public static function bootElasticSearchable()
     {
         static::saved(function ($item) {
             dispatch(new IndexAnItem($item->getIndexName(), $item->getIndexId(), $item->toIndexArray(), $item->getIndexMapping()));
