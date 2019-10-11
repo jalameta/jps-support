@@ -22,12 +22,14 @@ class ElasticSearchServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        require_once __DIR__. DIRECTORY_SEPARATOR . 'helpers.php';
+        require_once __DIR__.DIRECTORY_SEPARATOR.'helpers.php';
 
         try {
             $this->app->singleton('jps.elasticsearch', function ($app) {
+                $host = env('ELASTICSERVER_HOST', config('services.elasticsearch.host')).':'.env('ELASTICSERVER_PORT', config('services.elasticsearch.port'));
+
                 $client = ClientBuilder::create()
-                    ->setHosts([env('ELASTICSERVER_HOST', config('services.elasticsearch.host')).':'.env('ELASTICSERVER_PORT', config('services.elasticsearch.port'))])
+                    ->setHosts([$host])
                     ->build();
 
                 return $client;

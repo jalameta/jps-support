@@ -4,7 +4,6 @@ namespace Jalameta\Support\ElasticSearch;
 
 use Jalameta\Support\Bus\BaseJob;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Jalameta\Support\ElasticSearch\Exceptions\ElasticSearchHostUnreachable;
 
 /**
  * Index an Item.
@@ -64,7 +63,7 @@ class IndexAnItem extends BaseJob implements ShouldQueue
      * @param array $data
      * @param array $mapping
      */
-    public function __construct($index, $id = null, array $data = [], array $mapping)
+    public function __construct($index, $id = null, array $data = [], array $mapping = [])
     {
         parent::__construct([]);
         $this->index = $index;
@@ -77,12 +76,11 @@ class IndexAnItem extends BaseJob implements ShouldQueue
      * Run the actual command process.
      *
      * @return bool
-     * @throws \Jalameta\Support\ElasticSearch\Exceptions\ElasticSearchHostUnreachable
      */
     public function run(): bool
     {
         $data = [
-            'name' => $this->name,
+            'index' => $this->index,
             'body' => array_merge($this->data, ['mapping' => $this->mapping]),
         ];
 
@@ -90,11 +88,7 @@ class IndexAnItem extends BaseJob implements ShouldQueue
             $data['id'] = $this->id;
         }
 
-        try {
-            es()->index($data);
-        } catch (\Exception $e) {
-            throw new ElasticSearchHostUnreachable($this->index, $this->data);
-        }
+        es()->index($data);
 
         return true;
     }
