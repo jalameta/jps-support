@@ -22,7 +22,7 @@ class ElasticSearchServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        require_once __DIR__.'helpers.php';
+        require_once __DIR__. DIRECTORY_SEPARATOR . 'helpers.php';
 
         try {
             $this->app->singleton('jps.elasticsearch', function ($app) {
