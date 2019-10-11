@@ -15,6 +15,7 @@
     }
   ],
   "suggest": {
+    "elasticsearch/elasticsearch": "You know, for search!",
     "keiko/uuid-shortener": "A simple shortener library for RFC 4122 compatible UUIDs. Change your 36 chars long UUID into it's shorter equivalent. You must install this package if you want to be able to use UUID Shortener"
   },
   "autoload": {
