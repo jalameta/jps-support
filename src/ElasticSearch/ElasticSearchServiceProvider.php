@@ -27,7 +27,7 @@ class ElasticSearchServiceProvider extends ServiceProvider
         try {
             $this->app->singleton('jps.elasticsearch', function ($app) {
                 $client = ClientBuilder::create()
-                    ->setHosts([env('ES_HOST', 'http://10.10.10.100:8081')])
+                    ->setHosts([env('ELASTICSERVER_HOST', config('services.elasticsearch.host')).':'.env('ELASTICSERVER_PORT', config('services.elasticsearch.port'))])
                     ->build();
 
                 return $client;
