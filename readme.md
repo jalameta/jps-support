@@ -107,5 +107,3 @@ class User extends Authenticable
     protected $primaryKey = 'uuid';
 }
 ```
-
-J
