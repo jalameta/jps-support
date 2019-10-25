@@ -18,6 +18,8 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
  *
  * @property-read \Illuminate\Http\Request $request
  * @method onSuccess(\Closure $callback)
+ * @method onAbort(\Closure $callback)
+ * @method onRunning(\Closure $callback)
  */
 abstract class BaseJob
 {
@@ -29,6 +31,13 @@ abstract class BaseJob
     const STATUS_FAILED = 'failed';
     const STATUS_SUCCESS = 'success';
     const STATUS_RUNNING = 'running';
+
+    /**
+     * Determine if request needs to be clear.
+     *
+     * @var bool
+     */
+    public static $resetRequests = false;
 
     /**
      * Status of the job.
@@ -63,7 +72,7 @@ abstract class BaseJob
          */
         $request = app('request');
 
-        if (app()->runningInConsole()) {
+        if (self::$resetRequests) {
             $request->replace([]);
         }
 
