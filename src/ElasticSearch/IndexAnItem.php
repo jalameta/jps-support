@@ -81,7 +81,7 @@ class IndexAnItem extends BaseJob implements ShouldQueue
     {
         $data = [
             'index' => $this->index,
-            'body' => array_merge($this->data, ['mapping' => $this->mapping]),
+            'body' => $this->data,
         ];
 
         if (! empty($this->id)) {
