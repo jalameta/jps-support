@@ -17,8 +17,9 @@ trait ElasticSearchable
     public static function bootElasticSearchable()
     {
         static::saved(function ($item) {
-            if (env('APP_ENV') !== 'testing' AND env('APP_ENV') !== 'test')
+            if (env('APP_ENV') !== 'testing' and env('APP_ENV') !== 'test') {
                 dispatch(new IndexAnItem($item->getIndexName(), $item->getIndexId(), $item->toIndexArray(), $item->getIndexMapping()));
+            }
         });
     }
 
