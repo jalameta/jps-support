@@ -2,7 +2,9 @@
 
 namespace Jalameta\Support\ElasticSearch\Concerns;
 
+use Illuminate\Support\Carbon;
 use Jalameta\Support\ElasticSearch\IndexAnItem;
+use Jalameta\Support\ElasticSearch\Contracts\ShouldBeIndexed;
 
 /**
  * Should be indexed trait, should be used on Eloquent Object.
@@ -31,12 +33,40 @@ trait ElasticSearchable
     public function getIndexName()
     {
         if (property_exists($this, 'index_name')) {
-            return $this->index_name;
+            return $this->resolveIndexName($this->index_name);
         }
 
         return empty(config('services.elasticsearch.prefix'))
-            ? $this->table
-            : config('services.elasticsearch.prefix').'_'.$this->table;
+            ? $this->resolveIndexName($this->table)
+            : config('services.elasticsearch.prefix').'_'.$this->resolveIndexName($this->table);
+    }
+
+    /**
+     * Resolve name with granularity/interval.
+     * 
+     * @param $name
+     *
+     * @return string
+     */
+    public function resolveIndexName($name)
+    {
+        switch ($this->getInterval()) {
+            case ShouldBeIndexed::INTERVAL_MONTHLY;
+                $name = $name.'_'.Carbon::now()->format('Y-m');
+                break;
+            case ShouldBeIndexed::INTERVAL_WEEKLY;
+                $name = $name.'_'.Carbon::now()->startOfWeek()->format('Y-m-d');
+                break;
+            case ShouldBeIndexed::INTERVAL_DAILY:
+                $name = $name.'_'.Carbon::now()->format('Y-m-d');
+                break;
+            case ShouldBeIndexed::INTERVAL_NONE:
+            default:
+                // do nothing
+                break;
+        }
+
+        return $name;
     }
 
     /**
@@ -67,5 +97,15 @@ trait ElasticSearchable
     public function getIndexId()
     {
         return $this->{$this->getKeyName()};
+    }
+
+    /**
+     * Default interval (granularity).
+     *
+     * @return int
+     */
+    public function getInterval()
+    {
+        return ShouldBeIndexed::INTERVAL_NONE;
     }
 }
