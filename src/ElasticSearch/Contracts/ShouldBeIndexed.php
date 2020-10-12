@@ -9,6 +9,11 @@ namespace Jalameta\Support\ElasticSearch\Contracts;
  */
 interface ShouldBeIndexed
 {
+    const INTERVAL_NONE = 0;
+    const INTERVAL_DAILY = 1;
+    const INTERVAL_WEEKLY = 2;
+    const INTERVAL_MONTHLY = 3;
+
     /**
      * Transform Object to Indexable array.
      *
@@ -36,4 +41,11 @@ interface ShouldBeIndexed
      * @return mixed
      */
     public function getIndexId();
+
+    /**
+     * Get index interval (granularity).
+     *
+     * @return mixed
+     */
+    public function getInterval();
 }
