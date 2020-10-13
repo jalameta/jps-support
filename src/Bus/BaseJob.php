@@ -181,7 +181,7 @@ abstract class BaseJob
      *
      * @return bool
      */
-    public function success()
+    public function isSuccess()
     {
         return ($this->status === self::STATUS_SUCCESS);
     }
@@ -191,7 +191,7 @@ abstract class BaseJob
      *
      * @return bool
      */
-    public function failed()
+    public function isFailed()
     {
         return ($this->status === self::STATUS_FAILED);
     }
