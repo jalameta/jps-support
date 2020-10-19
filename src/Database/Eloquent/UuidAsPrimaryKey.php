@@ -3,9 +3,9 @@
 namespace Jalameta\Support\Database\Eloquent;
 
 use Illuminate\Support\Str;
+use Keiko\Uuid\Shortener\Shortener;
 use Keiko\Uuid\Shortener\Dictionary;
 use Keiko\Uuid\Shortener\Number\BigInt\Converter;
-use Keiko\Uuid\Shortener\Shortener;
 
 /**
  * UUID as primary key in eloquent model.
