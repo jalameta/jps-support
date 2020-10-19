@@ -15,6 +15,13 @@ use Keiko\Uuid\Shortener\Number\BigInt\Converter;
 trait UuidAsPrimaryKey
 {
     /**
+     * Indicates if the IDs are auto-incrementing.
+     *
+     * @var bool
+     */
+    public $incrementing = false;
+    
+    /**
      * Generate UUID as primary key upon creating new record on eloquent model.
      *
      * @return void
