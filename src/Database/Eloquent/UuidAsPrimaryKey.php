@@ -2,10 +2,10 @@
 
 namespace Jalameta\Support\Database\Eloquent;
 
-use Ramsey\Uuid\Uuid;
-use Keiko\Uuid\Shortener\Shortener;
+use Illuminate\Support\Str;
 use Keiko\Uuid\Shortener\Dictionary;
 use Keiko\Uuid\Shortener\Number\BigInt\Converter;
+use Keiko\Uuid\Shortener\Shortener;
 
 /**
  * UUID as primary key in eloquent model.
@@ -39,7 +39,7 @@ trait UuidAsPrimaryKey
      */
     public function generateUuid()
     {
-        $uuid = Uuid::uuid1()->toString();
+        $uuid = Str::orderedUuid();
 
         return ($this->isUsingShortUuid())
             ? $this->uuidShortener()->reduce($uuid)
