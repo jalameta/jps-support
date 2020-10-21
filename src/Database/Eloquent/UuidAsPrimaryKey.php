@@ -2,7 +2,7 @@
 
 namespace Jalameta\Support\Database\Eloquent;
 
-use Ramsey\Uuid\Uuid;
+use Illuminate\Support\Str;
 use Keiko\Uuid\Shortener\Shortener;
 use Keiko\Uuid\Shortener\Dictionary;
 use Keiko\Uuid\Shortener\Number\BigInt\Converter;
@@ -14,6 +14,13 @@ use Keiko\Uuid\Shortener\Number\BigInt\Converter;
  */
 trait UuidAsPrimaryKey
 {
+    /**
+     * Indicates if the IDs are auto-incrementing.
+     *
+     * @var bool
+     */
+    public $incrementing = false;
+    
     /**
      * Generate UUID as primary key upon creating new record on eloquent model.
      *
@@ -39,7 +46,7 @@ trait UuidAsPrimaryKey
      */
     public function generateUuid()
     {
-        $uuid = Uuid::uuid1()->toString();
+        $uuid = Str::orderedUuid();
 
         return ($this->isUsingShortUuid())
             ? $this->uuidShortener()->reduce($uuid)
