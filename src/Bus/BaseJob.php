@@ -225,7 +225,7 @@ abstract class BaseJob
                 /*
                  * @var $callback SerializableClosure
                  */
-                call_user_func($callback->getClosuse(), [$this]);
+                call_user_func_array($callback->getClosuse(), [$this]);
             }
         }
     }
